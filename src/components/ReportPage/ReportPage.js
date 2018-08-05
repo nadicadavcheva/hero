@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getCountriesPopulation }  from './api/index';
-import Table from '../Table/Table';
+import ReportTable from '../ReportTable/ReportTable';
 
 class ReportPage extends Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class ReportPage extends Component {
     const { error, isLoaded, items } = this.state;
     return (
       <div className="container">
-        {isLoaded ? <Table items={this.state.items} /> : <div>Loading...</div> }  
+        <h1>ReportPage</h1>  
+        {isLoaded ? <ReportTable items={this.state.items} /> : <div>Loading...</div> }  
       </div>
     );
   }

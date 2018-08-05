@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Row from './Row'; 
+import ReportRow from './ReportRow'; 
 
-class Table extends React.Component {
+class ReportTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ class Table extends React.Component {
   }
     
   render() {
-    const rows = this.state.data.map( (rowData) => <Row key={rowData.country} {...rowData} />);
+    const rows = this.state.data.map( (rowData) => <ReportRow key={rowData.country} {...rowData} />);
 
     return (
       <table className="table table-striped table-responsive">
@@ -45,4 +45,4 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+export default ReportTable;

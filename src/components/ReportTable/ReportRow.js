@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Row = ({ country, total }) => (
+const ReportRow = ({ country, total }) => (
   <tr>
     <td>{country}</td>
     <td>{total}</td>
   </tr>
 );
 
-export default Row;
+export default ReportRow;
