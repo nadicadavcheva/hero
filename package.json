@@ -37,7 +37,12 @@
     "css-loader": "^1.0.0",
     "less": "^3.8.0",
     "less-loader": "^4.1.0",
+    "node-sass": "^4.9.2",
+    "postcss-loader": "^2.1.6",
+    "rxjs": "^6.2.2",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
+    "webpack": "^4.16.4",
     "webpack-cli": "^3.1.0"
   },
   "babel": {
