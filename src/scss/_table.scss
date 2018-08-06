@@ -1,0 +1,11 @@
+.hr-table {
+  margin: 1em;
+
+  &-filter {
+    .clear-filter {
+      position: absolute;
+      right: 24px;
+      top: 7px;
+    }
+  }
+}

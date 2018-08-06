@@ -29,7 +29,7 @@ class ReportTable extends React.Component {
     const rows = this.state.data.map( (rowData) => <ReportRow key={rowData.country} {...rowData} />);
 
     return (
-      <table className="table table-striped table-responsive">
+      <table className="table table-striped table-responsive hr-table">
         <thead>
           <tr>
             <th onClick={() => this.sortBy('country')}>Country Name</th>

@@ -11,15 +11,18 @@ const Header = () => (
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
         </button>
-        <a className="navbar-brand" href="#">Bootstrap theme</a>
+        <a className="navbar-brand" href="#">Hero</a>
       </div>
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
-          <li className="active">
+          <li>
             <Link to='/'>Dashboard</Link>
           </li>
           <li>
-            <Link to='/report-page'>Report Page</Link>
+            <Link to='/report-page'>Report Page Custom</Link>
+          </li>
+          <li>
+            <Link to='/report-page-filters'>Report Page</Link>
           </li>
         </ul>
       </div>

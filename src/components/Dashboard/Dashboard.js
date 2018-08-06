@@ -1,103 +1,49 @@
 import React, { Component } from 'react';
 import { Bar as BarChart } from 'react-chartjs';
-import { getCountriesPopulation }  from '../ReportPage/api/index';
+import { getCountriesPopulation }  from '../../api/countriesPopulation';
+import { chartData, chartOptions } from './chart-settings';
 
 class Dashboard extends Component {
   state = {
-    chartData: {
-      labels: [],
-      datasets: [
-        {
-          label: 'Female',
-          fillColor: "rgba(220,220,220,0.5)",
-          strokeColor: "rgba(220,220,220,0.8)",
-          highlightFill: "rgba(220,220,220,0.75)",
-          highlightStroke: "rgba(220,220,220,1)",
-          data: []
-        },
-        {
-          label: "Male",
-          fillColor: "rgba(151,187,205,0.5)",
-          strokeColor: "rgba(151,187,205,0.8)",
-          highlightFill: "rgba(151,187,205,0.75)",
-          highlightStroke: "rgba(151,187,205,1)",
-          data: []
-        }
-      ]
-    },
-    chartOptions: {
-      scales: {
-        xAxes: [{
-          stacked: true
-        }],
-        yAxes: [{
-          stacked: true
-        }]
-      }
-    }
-  }
+    chartData: { ...chartData },
+    chartOptions: { ...chartOptions }
+  };
 
   componentDidMount() {
+    this.getChartData();
+  }
+
+  getChartData() {
     getCountriesPopulation(new Date().getFullYear(), 18).subscribe(response => {
       this.normalizeChartData(response);
     });
   }
 
-
-
   normalizeChartData(data) {
-    let chartData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Female",
-          fillColor: "rgba(220,220,220,0.5)",
-          strokeColor: "rgba(220,220,220,0.8)",
-          highlightFill: "rgba(220,220,220,0.75)",
-          highlightStroke: "rgba(220,220,220,1)",
-          data: []
-        },
-        {
-          label: "Male",
-          fillColor: "rgba(151,187,205,0.5)",
-          strokeColor: "rgba(151,187,205,0.8)",
-          highlightFill: "rgba(151,187,205,0.75)",
-          highlightStroke: "rgba(151,187,205,1)",
-          data: []
-        }
-      ]
-    };
-    var chartOptions = {
-      responsive:true,
-      maintainAspectRatio: false,
-      scales: {
-        xAxes: [{
-          stacked: true
-        }],
-        yAxes: [{
-          stacked: true,
-          ticks: {
-            beginAtZero:true
-          }
-        }]
-      }
-    };
-
-    data
-    .slice(0, 10)
+    data.map((item) => {
+      const sexRadio = (item.males / item.females) * 100;
+      return { sexRadio: sexRadio, ...item }
+    })
+    .sort(function(obj1, obj2) {
+      return obj1.sexRadio - obj2.sexRadio;
+    })
+    .slice(-10)
     .forEach(element => {
       chartData.labels.push(element.country);
       chartData.datasets[0].data.push(element.females);
       chartData.datasets[1].data.push(element.males);
     });
-    this.setState({ chartData: chartData,  chartOptions: chartOptions});
+    this.setState({ chartData: chartData ,  chartOptions: chartOptions });
   }
-
 
   render() {
     return ( 
       <div className="container">
-        <BarChart data={this.state.chartData} options={this.state.chartOptions } /> 
+        <h1>Dashboard</h1>  
+        <BarChart data={this.state.chartData} 
+                  options={this.state.chartOptions } 
+                  width="1200" height="800" redraw
+                  className="hr-chart" /> 
       </div> 
     );
   }

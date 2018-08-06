@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { getCountriesPopulation }  from './api/index';
+import { getCountriesPopulation }  from '../../api/countriesPopulation';
 import ReportTable from '../ReportTable/ReportTable';
 
 class ReportPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null,
       isLoaded: false,
       items: []
     }
   }
 
   componentDidMount() {
+    this.getPopulationData();
+  }
+
+  getPopulationData() {
     getCountriesPopulation(new Date().getFullYear(), 18).subscribe(response => {
       this.setState({
             isLoaded: true,
@@ -22,11 +25,11 @@ class ReportPage extends Component {
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { isLoaded, items } = this.state;
     return (
       <div className="container">
-        <h1>ReportPage</h1>  
-        {isLoaded ? <ReportTable items={this.state.items} /> : <div>Loading...</div> }  
+        <h1>Report Page Custom</h1>  
+        {isLoaded ? <ReportTable items={items} /> : <div>Loading...</div> }  
       </div>
     );
   }
